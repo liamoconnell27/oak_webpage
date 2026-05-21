@@ -85,7 +85,7 @@ export default function ServicesPage() {
           </div>
 
           <div>
-            {services.map((service, index) => (
+            {services.map((service) => (
               <div
                 key={service.number}
                 className="group flex flex-col lg:flex-row gap-8 lg:gap-16 py-12 lg:py-16 border-b border-foreground/10 last:border-b-0"

@@ -246,10 +246,14 @@ export function ProjectCarousel() {
 
   useEffect(() => {
     if (!emblaApi) return;
-    emblaApi.on("select", () => {
+    const onSelect = () => {
       setSelectedIndex(emblaApi.selectedScrollSnap());
       setExpandedProject(null);
-    });
+    };
+    emblaApi.on("select", onSelect);
+    return () => {
+      emblaApi.off("select", onSelect);
+    };
   }, [emblaApi]);
 
   const toggleDetails = (id: string) => {
@@ -313,7 +317,7 @@ export function ProjectCarousel() {
               {/* Expandable details */}
               <div
                 className={`overflow-hidden transition-all duration-500 border-x border-b border-foreground/10 ${
-                  expandedProject === project.id ? "max-h-64" : "max-h-0"
+                  expandedProject === project.id ? "max-h-[500px]" : "max-h-0"
                 }`}
               >
                 <div className="p-10 lg:p-14 border-t border-foreground/10">
@@ -333,13 +337,15 @@ export function ProjectCarousel() {
             <button
               key={i}
               onClick={() => emblaApi?.scrollTo(i)}
-              className={`h-px transition-all duration-300 ${
+              className="py-3 flex items-center"
+              aria-label={`Go to project ${i + 1}`}
+            >
+              <span className={`block h-px transition-all duration-300 ${
                 i === selectedIndex
                   ? "w-8 bg-foreground"
                   : "w-4 bg-foreground/25 hover:bg-foreground/50"
-              }`}
-              aria-label={`Go to project ${i + 1}`}
-            />
+              }`} />
+            </button>
           ))}
         </div>
 

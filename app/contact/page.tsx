@@ -20,7 +20,7 @@ const contactInfo = [
     icon: MapPin,
     label: "Office",
     value: "Ardmore, PA 19003",
-    href: "#",
+    href: null,
   },
   {
     icon: Clock,
